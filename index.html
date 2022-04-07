@@ -337,16 +337,15 @@
 	  <p><abbr title="Accessible Rich Internet Applications">WAI-ARIA</abbr> 包括许多 &quot;管理容器&quot; 小部件, 也称为 &quot;复合&quot; 小部件. 在适当的时候，容器负责跟踪最后一个活动的后代（默认通常是容器中的第一个项目）。 当焦点离开容器并随后重新聚焦时，容器必须保持可用且一致的策略。 虽然可能有例外，但建议当重新聚焦先前聚焦的容器时，活动后代与容器上次聚焦时活动后代的元素相同。 例外情况包括容器小部件的内容已更改的情况，以及用户希望在焦点离开菜单栏时始终返回到第一项的菜单栏等小部件。 例如，如果当用户从tree group中跳出时，tree group的第二个项目是活动后代，那么当tree group再次获得焦点时，tree group的第二个项目仍然是活动后代。用户还可以通过单击其中的一个后代来激活该容器。当容器或其活动后代具有焦点时，用户可以通过按其他键（例如箭头键）来导航容器，以更改当前活动的后代。 主导航键(通常是 <kbd>TAB</kbd> 键) 的任何额外按下都会移出容器到下一个小部件.</p>
 	  <p>富 Internet 应用程序中可用的键盘导航不同于静态文档中交互元素（如链接和表单控件）之间的tab切换模式。 在富 Internet 应用程序中，用户通过tab切换选择非常复杂的 <a class="termref">小部件</a>, 例如菜单或电子表格，并使用箭头键在小部件内导航。 <abbr title="accessible rich internet applications">WAI-ARIA</abbr> 对键盘导航的改变使这种增强的可访问性成为可能。 在 <abbr title="accessible rich internet applications">WAI-ARIA</abbr>中, 任何元素都可以通过键盘聚焦。 除了<code>tabindex</code>等宿主语言机制外, <pref>aria-activedescendant</pref> 还提供了另一种键盘操作机制。 <abbr title="Accessible Rich Internet Application">WAI-ARIA</abbr> 小部件开发的大多数其他方面都依赖于键盘导航功能是否正常。</p>
           <p>
-            When implementing <pref>aria-activedescendant</pref> as described below, the user agent keeps the <abbr title="Document Object Model">DOM</abbr> focus on the container element or on an input element that controls the container element.
-            However, the user agent communicates <a>desktop focus events</a> and states to the assistive technology as if the element referenced by <pref>aria-activedescendant</pref> has focus.
-            User agents are not expected to validate that the active descendant is a descendant of the container element.
-            It is the responsibility of the user agent to ensure that keyboard events are processed at the <a>element</a> that has <abbr title="Document Object Model">DOM</abbr> focus.
-            Any keyboard events directed at the active descendant bubble up to the <abbr title="Document Object Model">DOM</abbr> element with focus for processing.
+            如下所述实现 <pref>aria-activedescendant</pref> 时, 用户代理将 <abbr title="Document Object Model">DOM</abbr> 焦点保持在容器元素或控制容器元素的输入元素上。
+            但是，用户代理将<a>桌面焦点事件</a> 和状态传达给辅助技术，就好像 <pref>aria-activedescendant</pref> 引用的元素具有焦点一样。用户代理不应该验证活动后代是容器元素的后代。 
+            用户代理有责任确保在具有 <abbr title="Document Object Model">DOM</abbr> 焦点的<a>元素</a>处处理键盘事件。
+            指向活动后代的任何键盘事件都会冒泡到具有焦点的 <abbr title="Document Object Model">DOM</abbr> 元素进行处理。
           </p>
 	  <section id="managingfocus_authors">
 	    <h3>Information for Authors</h3>
-	    <p>If the author removes the element with focus, the author SHOULD move focus to a logical element. Similarly, authors SHOULD not scroll the element with focus off screen unless the user performed a scrolling action.</p>
-	    <p>Authors SHOULD ensure that all interactive <a>elements</a> are focusable and that all parts of composite widgets are either focusable or have a documented alternative method to achieve their function.</p>
+	    <p>如果作者删除了有焦点的元素，作者应该将焦点移到一个逻辑元素上。类似地，除非用户执行了滚动操作，否则作者不应该滚动焦点离开屏幕的元素。</p>
+	    <p>作者应该确保所有交互 <a>元素</a> 都是可聚焦的，并且复合小部件的所有部分要么是可聚焦的，要么有一个记录在案的替代方法来实现它们的功能。</p>
 	    <p>Authors MUST manage focus on the following container roles:</p>
 	    <ul>
 	      <li><rref>grid</rref></li>
@@ -358,7 +357,7 @@
 	      <li><rref>treegrid</rref></li>
 	      <li><rref>tablist</rref></li>
 	    </ul>
-	    <p>User agents that support <abbr title="Accessible Rich Internet Application">WAI-ARIA</abbr> expand the usage of host language mechanisms such as <code>tabindex</code>, <code>focus</code>, and <code>blur</code> to allow them on all <a>elements</a>. Where the host language supports it, authors MAY add any element such as a <code>div</code>, <code>span</code>, or <code>img</code> to the default tab order by setting <code>tabindex=&quot;0&quot;</code>. In addition, any item with <code>tabindex</code> equal to a negative integer is focusable via script or a mouse click, but is not part of the default tab order. This is supported in both [[HTML]] and [[SVG2]].</p>
+	    <p>支持 <abbr title="Accessible Rich Internet Application">WAI-ARIA</abbr> 的用户代理扩展了宿主语言机制， 例如 <code>tabindex</code>, <code>focus</code>, 和 <code>blur</code> 的使用，以允许它们在所有 <a>元素</a>上使用。 在宿主语言支持的情况下， 作者可以通过设置<code>tabindex=&quot;0&quot;</code> 将任何元素，例如： <code>div</code>, <code>span</code>, or <code>img</code> 添加到默认选项卡顺序。此外，任何 <code>tabindex</code> 等于负整数的项目都可以通过脚本或鼠标单击获得焦点，This is supported in both [[HTML]] and [[SVG2]].</p>
 	    <p>
         Authors MAY use <pref>aria-activedescendant</pref> to inform <a>辅助技术</a> which descendant of a <rref>widget</rref> element is treated as having keyboard focus in the user interface if the role of the widget element supports <code>aria-activedescendant</code>.
         This is often a more convenient way of providing keyboard navigation within widgets, such as a <rref>listbox</rref>, where the widget occupies only one stop in the page <kbd>Tab</kbd> sequence and other keys, typically arrow keys, are used to focus elements inside the widget.  
